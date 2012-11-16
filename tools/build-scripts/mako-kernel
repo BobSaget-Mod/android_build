@@ -1,0 +1,53 @@
+#!/bin/bash
+# Copyright (C) 2012-2013 The SaberMod Project
+# Build Script.  Use bash to run this script, bash mako-kernel from source directory
+export MANUFACTURER=lge;
+export DEVICE=mako;
+
+# Source Directory PATH
+export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+
+# Where prebuilt modules will be stored for installation into the ROM
+export MODULES_DEST=$DIRSRC/vendor/sm/prebuilts/mako/system/lib/modules;
+
+# Kernel Source PATH
+export KERNELSRC=$DIRSRC/kernel/$MANUFACTURER/$DEVICE;
+
+# Target gcc version
+export TARGET_GCC=4.7;
+export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/arm-eabi-$TARGET_GCC;
+export PATH=$PATH:$ARM_EABI_TOOLCHAIN/bin:$ARM_EABI_TOOLCHAIN/arm-eabi/bin;
+
+# Cross compile with arm
+export ARCH=arm;
+export CCOMPILE=$CROSS_COMPILE;
+export CROSS_COMPILE=$ARM_EABI_TOOLCHAIN/bin/arm-eabi-;
+
+# Start the build
+echo "";
+echo "Starting the kernel build";
+echo "";
+cd $KERNELSRC && make -C $KERNELSRC $J sabermod_mako_defconfig && time make -C $KERNELSRC $J zImage && make -C $KERNELSRC $J modules;
+
+# Only try to install the kernel binary image and modules(s) if they exsist
+if [ -e $KERNELSRC/arch/arm/boot/zImage ] || [ -e $KERNELSRC/drivers/scsi/scsi_wait_scan.ko ] || [ -e $KERNELSRC/fs/cifs/cifs.ko ];
+then
+    cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/$MANUFACTURER/$DEVICE-kernel/kernel;
+
+    # Modules arguments
+    # Make sure the modules directory in the device tree is present
+    if [ -d $MODULES_DEST ];
+    then
+        cp $KERNELSRC/drivers/scsi/scsi_wait_scan.ko -f $MODULES_DEST/scsi_wait_scan.ko && cp $KERNELSRC/fs/cifs/cifs.ko -f $MODULES_DEST/cifs.ko;
+    else
+        mkdir -p $DIRSRC/vendor/sm/prebuilts/mako/system/lib/modules;
+        cp $KERNELSRC/drivers/scsi/scsi_wait_scan.ko -f $MODULES_DEST/scsi_wait_scan.ko && cp $KERNELSRC/fs/cifs/cifs.ko -f $MODULES_DEST/cifs.ko;
+    fi;
+else
+    echo "":
+    echo "error detected in kernel build, now exiting";
+    exit 1;
+fi;
+cd $DIRSRC;
+echo "Kernel build finished, Continuing with ROM build";
+echo "";
