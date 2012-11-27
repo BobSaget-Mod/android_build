@@ -82,14 +82,14 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing
+                        -Wno-error=strict-aliasing
     else
 TARGET_thumb_CFLAGS :=  -mthumb \
                         -Os \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing
+                        -Wno-error=strict-aliasing
     endif
 else
 TARGET_thumb_CFLAGS := $(TARGET_arm_CFLAGS)
@@ -177,7 +177,7 @@ TARGET_RELEASE_CFLAGS += \
 			-DNDEBUG \
 			-g \
 			-Wstrict-aliasing=2 \
-			-Werror=strict-aliasing \
+			-Wno-error=strict-aliasing \
 			-fgcse-after-reload \
 			-frerun-cse-after-loop \
 			-frename-registers
