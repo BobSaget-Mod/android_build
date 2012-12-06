@@ -63,13 +63,13 @@ function check_product()
         return
     fi
 
-    if (echo -n $1 | grep -q -e "^full_") ; then
-       CFX_BUILD=$(echo -n $1 | sed -e 's/^full_//g')
-       NAM_VARIANT=$(echo -n $1 | sed -e 's/^full_//g')
+    if (echo -n $1 | grep -q -e "^cfx_") ; then
+       CFX_BUILD=$(echo -n $1 | sed -e 's/^cfx_//g')
+       NAM_VARIANT=$(echo -n $1 | sed -e 's/^cfx_//g')
     elif (echo -n $1 | grep -q -e "htc_") ; then
        CFX_BUILD=
        NAM_VARIANT=$(echo -n $1)
-    else 
+    else
        CFX_BUILD=
        NAM_VARIANT=
     fi
@@ -512,7 +512,7 @@ function breakfast()
             lunch $target
         else
             # This is probably just the CM model name
-            lunch cm_$target-userdebug
+            lunch cfx_$target-userdebug
         fi
     fi
     return $?
