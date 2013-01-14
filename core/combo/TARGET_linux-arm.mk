@@ -70,7 +70,6 @@ TARGET_arm_CFLAGS :=    -O3 \
                         -fomit-frame-pointer \
                         -fstrict-aliasing    \
                         -funswitch-loops \
-# Graphite Optimizations
                         -floop-interchange \
                         -floop-strip-mine \
                         -floop-block \
@@ -89,7 +88,6 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
                         -Werror=strict-aliasing \
-# Graphite Optimizations
                         -floop-interchange \
                         -floop-strip-mine \
                         -floop-block \
@@ -102,7 +100,6 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
                         -Werror=strict-aliasing \
-# Graphite Optimizations
                         -floop-interchange \
                         -floop-strip-mine \
                         -floop-block \
