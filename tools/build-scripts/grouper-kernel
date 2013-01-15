@@ -10,7 +10,7 @@ export CCOMPILE=$CROSS_COMPILE;
 export CROSS_COMPILE=$ARM_EABI_TOOLCHAIN/bin/arm-eabi-;
 echo "Starting the kernel build";
 echo "";
-make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" teamandroid_aosp_grouper_defconfig && time make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" zImage &&
+make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" sabermod_grouper_defconfig && time make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" zImage &&
 make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" modules;
 cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/asus/grouper/kernel && cp $KERNELSRC/drivers/staging/zram/zram.ko -f $DIRSRC/device/asus/grouper/system/lib/modules/zram.ko;
 echo "Kernel build finished, Continuing with ROM build";
