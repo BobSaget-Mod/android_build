@@ -35,7 +35,7 @@ fi;
 echo "Starting the build";
 echo "";
 # Build with number of cpu's available and nothing more or less :)
-. build/envsetup.sh && lunch full_$DEVICE-userdebug && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+. build/envsetup.sh && lunch full_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
 # Build is complete, (hopefully without errors)
 cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
 echo "Finished!";
