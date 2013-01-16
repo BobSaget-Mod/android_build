@@ -1,7 +1,7 @@
 #!/bin/bash
-# Build Script.  Use bash to run this script, bash grouper-ota from source directory
+# Build Script.  Use bash to run this script, bash sm-tilapia from source directory
 # export's
-export DEVICE=grouper;
+export DEVICE=tilapia;
 export BUILD=SaberMod;
 # Find out where the source directory is
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
@@ -12,6 +12,8 @@ export OUT_DIR_COMMON_BASE=$DIRSRC/out/$DEVICE
 export DEBUG_NO_STDCXX11=yes;
 # Build with more opt flags
 export USE_MORE_OPT_FLAGS=yes;
+# Use New memcpy
+export USE_NEW_MEMCPY=true;
 # ccache. Set up ccache to your liking prior to running this script
 export CCACHE_DIR=$DIRSRC/prebuilts/misc/linux-x86/ccache;
 export USE_CCACHE=1;
