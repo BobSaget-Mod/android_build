@@ -10,8 +10,6 @@ export KERNEL=grouper;
 export OUT_DIR_COMMON_BASE=$DIRSRC/out/$DEVICE
 # Disable c++11 mode
 export DEBUG_NO_STDCXX11=yes;
-# Build with more opt flags
-export USE_MORE_OPT_FLAGS=yes;
 # Use New memcpy
 export USE_NEW_MEMCPY=true;
 # ccache. Set up ccache to your liking prior to running this script
