@@ -26,7 +26,7 @@ if [ -e $DIRSRC/$KERNEL-kernel ];
 then
     echo "";
     # Start the build
-    echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch full_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+    echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
     # Build is complete, (hopefully without errors)
     cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
     echo "Finished!";
@@ -34,7 +34,7 @@ then
 else
     echo "";
     # Start the build
-    echo "No kernel script found, ignoring and treating as normal" && echo "" && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch full_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+    echo "No kernel script found, ignoring and treating as normal" && echo "" && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
     # Build is complete, (hopefully without errors)
     cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
     echo "Finished!";
