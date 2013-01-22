@@ -1,20 +1,23 @@
 #!/bin/bash
+# Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash sm-tilapia from source directory
-# export's
 export DEVICE=tilapia;
 export BUILD=SaberMod;
-# Find out where the source directory is
-export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 export KERNEL=grouper;
-# Output directory
+
+# Source Directory PATH
+export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+
+# Output directory PATH
 export OUT_DIR_COMMON_BASE=$DIRSRC/out/$DEVICE
+
 # Disable c++11 mode
 export DEBUG_NO_STDCXX11=yes;
-# Use New memcpy
-export USE_NEW_MEMCPY=true;
+
 # ccache. Set up ccache to your liking prior to running this script
 export CCACHE_DIR=$DIRSRC/prebuilts/misc/linux-x86/ccache;
 export USE_CCACHE=1;
+
 # clean Steps
 if [ -d $DIRSRC/out/$DEVICE/$BUILD ];
 then
@@ -22,19 +25,23 @@ then
     echo ""
     rm -rf $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.img $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.zip $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/build.prop $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.md5sum $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/kernel
 fi;
+
+# Check for kernel script
 if [ -e $DIRSRC/$KERNEL-kernel ];
 then
-    echo "";
+
     # Start the build
-    echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+    echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+
     # Build is complete, (hopefully without errors)
     cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
     echo "Finished!";
     echo "";
 else
-    echo "";
+
     # Start the build
-    echo "No kernel script found, ignoring and treating as normal" && echo "" && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+    echo "" && echo "No kernel script found, ignoring and treating as normal" && echo "" && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
+
     # Build is complete, (hopefully without errors)
     cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
     echo "Finished!";

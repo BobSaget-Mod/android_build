@@ -1,31 +1,16 @@
 #!/bin/bash
+# Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash sm-all from source directory
-# Find out where the source directory is
-export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 export MOD=sm;
 export DEVICE=grouper;
+
+# Directory source PATH
+export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+
+# Check for required scripts
 if [ -e $DIRSRC/$MOD-$DEVICE ];
 then
-    echo "Starting $MOD-$DEVICE ota package build";
-    echo "";
-    bash $DIRSRC/$MOD-$DEVICE;
-    echo "$MOD-$DEVICE ota package build finished";
-    echo "";
-    export DEVICE=tilapia;
-    if [ -e $DIRSRC/$MOD-$DEVICE ];
-    then
-        echo "Starting $MOD-$DEVICE ota package build in 1 minute";
-        echo "";
-        sleep 60;
-        echo "Starting $MOD-$DEVICE ota package build";
-        echo "";
-        bash $DIRSRC/$MOD-$DEVICE;
-        echo "$MOD-$DEVICE ota package build finished";
-        echo "";
-        echo "All ota packages are finished";
-    else
-        echo "error, needed $DIRSRC/$MOD-$DEVICE bash script not found!";
-    fi;
+    echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && export DEVICE=tilapia && echo "Starting $MOD-$DEVICE ota package build in 1 minute" && echo "" && sleep 60 && echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && echo "All ota packages are finished";
 else
     echo "error, needed $DIRSRC/$MOD-$DEVICE bash script not found!";
 fi;
