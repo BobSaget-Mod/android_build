@@ -69,13 +69,7 @@ TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 TARGET_arm_CFLAGS :=    -O3 \
                         -fomit-frame-pointer \
                         -fstrict-aliasing    \
-                        -funswitch-loops \
-# Graphite Optimizations
-                        -floop-interchange \
-                        -floop-strip-mine \
-                        -floop-block \
-                        -ffast-math \
-                        -funsafe-loop-optimizations
+                        -funswitch-loops
 
 # Modules can choose to compile some source as thumb. As
 # non-thumb enabled targets are supported, this is treated
@@ -88,26 +82,14 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing \
-# Graphite Optimizations
-                        -floop-interchange \
-                        -floop-strip-mine \
-                        -floop-block \
-                        -ffast-math \
-                        -funsafe-loop-optimizations
+                        -Werror=strict-aliasing
     else
 TARGET_thumb_CFLAGS :=  -mthumb \
                         -Os \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing \
-# Graphite Optimizations
-                        -floop-interchange \
-                        -floop-strip-mine \
-                        -floop-block \
-                        -ffast-math \
-                        -funsafe-loop-optimizations
+                        -Werror=strict-aliasing
     endif
 else
 TARGET_thumb_CFLAGS := $(TARGET_arm_CFLAGS)
