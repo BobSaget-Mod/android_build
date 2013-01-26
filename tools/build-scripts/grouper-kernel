@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash grouper-kernel from source directory
-
+export USING_BUILD_SCRIPTS=true;
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 

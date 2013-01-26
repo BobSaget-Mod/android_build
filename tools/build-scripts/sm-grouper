@@ -1,6 +1,7 @@
 #!/bin/bash
 # Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash sm-grouper from source directory
+export USING_BUILD_SCRIPTS=true;
 export DEVICE=grouper;
 export BUILD=SaberMod;
 export KERNEL=grouper;
