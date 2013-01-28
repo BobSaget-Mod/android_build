@@ -6,6 +6,9 @@ export DEVICE=tilapia;
 export BUILD=SaberMod;
 export KERNEL=grouper;
 
+# GCC Use linaro's toolschain for arm eabi
+export USE_LINARO_ARMEABI=true;
+
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
