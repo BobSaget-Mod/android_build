@@ -15,6 +15,12 @@ ifeq ($(TARGET_ARCH),arm)
       # this should be copied to HOST_OUT_EXECUTABLES instead
       ABP:=$(ABP):$(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7/bin
   endif
+  ifeq ($(USE_GNU_ANDROIDEABI),true)
+    ifneq ($(wildcard $(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/android-GNU-toolchain-4.8/bin),)
+        # this should be copied to HOST_OUT_EXECUTABLES instead
+        ABP:=$(ABP):$(PWD)/prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/android-GNU-toolchain-4.8/bin
+    endif
+  endif
 else ifeq ($(TARGET_ARCH),x86)
 
 # Add the x86 toolchain bin dir if it actually exists

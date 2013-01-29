@@ -6,8 +6,9 @@ export DEVICE=grouper;
 export BUILD=SaberMod;
 export KERNEL=grouper;
 
-# GCC Use linaro's toolschain for arm eabi
-export USE_LINARO_ARMEABI=true;
+# Use GNU's toolschain
+export USE_GNU_ARMEABI=true;
+export USE_GNU_ANDROIDEABI=true;
 
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
