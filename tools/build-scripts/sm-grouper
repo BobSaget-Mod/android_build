@@ -10,6 +10,9 @@ export KERNEL=grouper;
 export USE_GNU_ARMEABI=true;
 export USE_GNU_ANDROIDEABI=true;
 
+# Turn off strict-aliasing until GNU gcc 4.8 is more stable
+export DEBUG_NO_STRICT_ALIASING=yes;
+
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
