@@ -9,7 +9,7 @@ export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 export KERNELSRC=$DIRSRC/kernel/asus/grouper;
 
 # Toolchain PATH
-export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/android-GNU-toolchain-4.8;
+export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/android-linaro-toolchain-4.8;
 export PATH=$PATH:$ARM_EABI_TOOLCHAIN/bin:$ARM_EABI_TOOLCHAIN/arm-eabi/bin;
 
 # Cross compile with arm
