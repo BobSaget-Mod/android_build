@@ -32,7 +32,7 @@ PRODUCT_PACKAGES := \
     Gallery2 \
     InputDevices \
     LatinIME \
-    Trebuchet \
+    Launcher2 \
     Music \
     Provision \
     Phone \

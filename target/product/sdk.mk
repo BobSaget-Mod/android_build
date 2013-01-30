@@ -36,7 +36,7 @@ PRODUCT_PACKAGES := \
 	Protips \
 	SoftKeyboard \
 	SystemUI \
-	Trebuchet \
+	Launcher2 \
 	Development \
 	DevelopmentSettings \
 	DrmProvider \
