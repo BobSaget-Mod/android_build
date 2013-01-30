@@ -7,7 +7,7 @@ export BUILD=SaberMod;
 export KERNEL=grouper;
 
 # Use GNU's toolschain
-export USE_GNU_ARMEABI=true;
+export USE_LINARO_ARMEABI=true;
 export USE_GNU_ANDROIDEABI=true;
 
 # Turn off strict-aliasing until GNU gcc 4.8 is more stable
