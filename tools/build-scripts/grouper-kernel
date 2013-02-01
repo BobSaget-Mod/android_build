@@ -17,10 +17,6 @@ export ARCH=arm;
 export CCOMPILE=$CROSS_COMPILE;
 export CROSS_COMPILE=$ARM_EABI_TOOLCHAIN/bin/arm-eabi-;
 
-# Clean the kernel first.  Since updating to Linaro's daily toolchains the toolchains will likely change on a daily basis.  Because of this we should be building a fresh kernel zImage each time.
-echo "Cleaning target kernel source";
-make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" clean;
-
 # Start the build
 echo "";
 echo "Starting the kernel build";

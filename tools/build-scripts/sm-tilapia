@@ -6,12 +6,9 @@ export DEVICE=tilapia;
 export BUILD=SaberMod;
 export KERNEL=grouper;
 
-# Use GNU's toolschain
+# Toolchain arguments
 export USE_LINARO_ARMEABI=true;
 export USE_GNU_ANDROIDEABI=false;
-
-# Turn off strict-aliasing until GNU gcc 4.8 is more stable
-export DEBUG_NO_STRICT_ALIASING=yes;
 
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
