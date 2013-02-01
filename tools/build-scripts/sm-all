@@ -10,7 +10,7 @@ export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 # Check for required scripts
 if [ -e $DIRSRC/$MOD-$DEVICE ];
 then
-    echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && export DEVICE=tilapia && echo "Starting $MOD-$DEVICE ota package build in 1 minute" && echo "" && sleep 60 && echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && echo "All ota packages are finished";
+    echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && export DEVICE=tilapia && echo "Starting $MOD-$DEVICE ota package build in 1 minute" && echo "" && sleep 60 && echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && export DEVICE=mako && echo "Starting $MOD-$DEVICE ota package build in 1 minute" && echo "" && sleep 60 && echo "Starting $MOD-$DEVICE ota package build" && echo "" && bash $DIRSRC/$MOD-$DEVICE && echo "$MOD-$DEVICE ota package build finished" && echo "" && echo "All ota packages are finished";
 else
     echo "error, needed $DIRSRC/$MOD-$DEVICE bash script not found!";
 fi;
