@@ -21,9 +21,8 @@ export CROSS_COMPILE=$ARM_EABI_TOOLCHAIN/bin/arm-eabi-;
 echo "";
 echo "Starting the kernel build";
 echo "";
-make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" sabermod_mako_defconfig && time make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" zImage &&
-make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" modules;
-cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/lge/mako-kernel/kernel
+cd $KERNELSRC && make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" sabermod_mako_defconfig && time make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" zImage && make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" modules && cd $DIRSRC;
+cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/lge/mako-kernel/kernel;
 echo "Kernel build finished, Continuing with ROM build";
 echo "";
 
