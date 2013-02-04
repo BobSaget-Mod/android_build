@@ -10,9 +10,6 @@ export KERNEL=mako;
 export USE_LINARO_ARMEABI=true;
 export USE_GNU_ANDROIDEABI=false;
 
-# Use old memcpy
-export USE_OLD_MEMCPY=true;
-
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
