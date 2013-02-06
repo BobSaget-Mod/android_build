@@ -2,6 +2,7 @@
 # Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash sm-tilapia from source directory
 export USING_BUILD_SCRIPTS=true;
+export MANUFACTURER=asus;
 export DEVICE=tilapia;
 export BUILD=SaberMod;
 export KERNEL=grouper;
@@ -39,7 +40,7 @@ then
     echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
 
     # Build is complete, (hopefully without errors)
-    cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
+    cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC;
     echo "Finished!";
     echo "";
 else
@@ -48,7 +49,7 @@ else
     echo "" && echo "No kernel script found, ignoring and treating as normal" && echo "" && echo "Starting the ROM build" && echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && time make -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" otapackage;
 
     # Build is complete, (hopefully without errors)
-    cd $DIRSRC/device/asus/grouper && git reset --hard && cd $DIRSRC;
+    cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC;
     echo "Finished!";
     echo "";
 fi;

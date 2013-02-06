@@ -1,12 +1,14 @@
 #!/bin/bash
 # Copyright (C) 2012-2013 The SaberMod Project
 # Build Script.  Use bash to run this script, bash grouper-kernel from source directory
-export USING_BUILD_SCRIPTS=true;
+export MANUFACTURER=lge;
+export DEVICE=mako;
+
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
 # Kernel Source PATH
-export KERNELSRC=$DIRSRC/kernel/asus/grouper;
+export KERNELSRC=$DIRSRC/kernel/$MANUFACTURER/$DEVICE;
 
 # Toolchain PATH
 export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/android-linaro-toolchain-4.8;
@@ -23,7 +25,7 @@ echo "Starting the kernel build";
 echo "";
 make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" sabermod_grouper_defconfig && time make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" zImage &&
 make -C $KERNELSRC -j `cat /proc/cpuinfo | grep "^processor" | wc -l` "$@" modules;
-cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/asus/grouper/kernel && cp $KERNELSRC/drivers/staging/zram/zram.ko -f $DIRSRC/device/asus/grouper/system/lib/modules/zram.ko;
+cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/$MANUFACTURER/$DEVICE/kernel && cp $KERNELSRC/drivers/staging/zram/zram.ko -f $DIRSRC/device/asus/grouper/system/lib/modules/zram.ko;
 echo "Kernel build finished, Continuing with ROM build";
 echo "";
 
