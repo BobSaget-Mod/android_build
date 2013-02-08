@@ -102,9 +102,3 @@ GRANDFATHERED_ALL_PREBUILT := \
 	zoneinfo.dat \
 	zoneinfo.idx \
 	zoneinfo.version
-
-ifeq ($(TARGET_BOOTLOADER_TYPE),uboot)
-GRANDFATHERED_ALL_PREBUILT += \
-	build-uboot \
-	build-mkenvimg
-endif

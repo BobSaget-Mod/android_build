@@ -15,11 +15,7 @@ else
 endif	# TARGET_NO_BOOTLOADER
 
 ifneq ($(strip $(TARGET_NO_KERNEL)),true)
-  ifeq ($(TARGET_BOOTLOADER_TYPE),uboot)
-    INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/uImage
-  else
-    INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/kernel
-  endif
+  INSTALLED_KERNEL_TARGET := $(PRODUCT_OUT)/kernel
 else
   INSTALLED_KERNEL_TARGET :=
 endif
