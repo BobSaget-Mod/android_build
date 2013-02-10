@@ -68,8 +68,9 @@ TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
 TARGET_arm_CFLAGS :=    -O3 \
                         -fomit-frame-pointer \
-                        -fstrict-aliasing    \
-                        -funswitch-loops
+                        -fstrict-aliasing \
+                        -funswitch-loops \
+                        -pipe
 
 # Modules can choose to compile some source as thumb. As
 # non-thumb enabled targets are supported, this is treated
@@ -82,14 +83,16 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing
+                        -Werror=strict-aliasing \
+                        -pipe
     else
 TARGET_thumb_CFLAGS :=  -mthumb \
                         -Os \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
-                        -Werror=strict-aliasing
+                        -Werror=strict-aliasing \
+                        -pipe
     endif
 else
 TARGET_thumb_CFLAGS := $(TARGET_arm_CFLAGS)
@@ -127,6 +130,7 @@ TARGET_GLOBAL_CFLAGS += \
 			-Werror=format-security \
 			-D_FORTIFY_SOURCE=1 \
 			-fno-short-enums \
+                        -pipe \
 			$(arch_variant_cflags)
 
 android_config_h := $(call select-android-config-h,linux-arm)
