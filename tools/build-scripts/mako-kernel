@@ -11,7 +11,7 @@ export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 export KERNELSRC=$DIRSRC/kernel/$MANUFACTURER/$DEVICE;
 
 # Toolchain PATH
-export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7;
+export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/arm-eabi-4.6;
 export PATH=$PATH:$ARM_EABI_TOOLCHAIN/bin:$ARM_EABI_TOOLCHAIN/arm-eabi/bin;
 
 # Cross compile with arm
