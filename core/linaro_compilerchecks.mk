@@ -22,10 +22,7 @@
 # friends in the same file that sets TARGET_CC...
 
 ifeq ($(strip $(TARGET_TOOLS_PREFIX)),)
-  LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/android-GNU-toolchain-4.8
-  ifneq ($(USE_GNU_ANDROIDEABI),true)
-    LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7
-  endif
+  LINARO_COMPILERCHECK_ROOT := prebuilts/gcc/$(HOST_PREBUILT_TAG)/arm/arm-linux-androideabi-4.7
 LINARO_COMPILERCHECK_CC := $(LINARO_COMPILERCHECK_ROOT)/bin/arm-linux-androideabi-gcc$(HOST_EXECUTABLE_SUFFIX)
 else
 LINARO_COMPILERCHECK_CC := $(TARGET_TOOLS_PREFIX)gcc$(HOST_EXECUTABLE_SUFFIX)
