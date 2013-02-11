@@ -7,9 +7,8 @@ export DEVICE=mako;
 export BUILD=SaberMod;
 export KERNEL=mako;
 
-# Toolchain arguments
-export USE_LINARO_ARMEABI=true;
-export USE_GNU_ANDROIDEABI=false;
+# Use AOSP' GCC 4.6 toolchain for arm-eabi
+export USE_AOSP_46_ARMEABI=true;
 
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";

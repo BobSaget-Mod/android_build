@@ -10,8 +10,8 @@ export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 # Kernel Source PATH
 export KERNELSRC=$DIRSRC/kernel/$MANUFACTURER/$DEVICE;
 
-# Toolchain PATH
-export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/android-linaro-toolchain-4.8;
+# GCC Use SaberMod's GCC 4.8 toolschain for arm eabi
+export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8;
 export PATH=$PATH:$ARM_EABI_TOOLCHAIN/bin:$ARM_EABI_TOOLCHAIN/arm-eabi/bin;
 
 # Cross compile with arm
