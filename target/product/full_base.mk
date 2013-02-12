@@ -29,7 +29,16 @@ PRODUCT_PACKAGES += \
     libvideoeditor_core \
     libvideoeditor_osal \
     libvideoeditor_videofilters \
-    libvideoeditorplayer
+    libvideoeditorplayer \
+    Galaxy4 \
+    HoloSpiralWallpaper \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    MagicSmokeWallpapers \
+    NoiseField \
+    PhaseBeam \
+    VisualizationWallpapers \
+    PhotoTable
 
 # Additional settings used in all AOSP builds
 PRODUCT_PROPERTY_OVERRIDES := \
