@@ -1229,7 +1229,7 @@ endif
 ifneq ($(CFX_BUILD),)
 TARGET_ADBLOCKER_HOSTS_FILE := $(TARGET_OUT)/etc/hosts
 $(TARGET_ADBLOCKER_HOSTS_FILE):
-	@echo -e ${CL_YLW}"Running adblocker..."${CL_RST}
+	@echo -e "Running adblocker..."
 	$(hide) TARGET_HOSTS_FILE=$(TARGET_ADBLOCKER_HOSTS_FILE) ./vendor/cm/tools/adblocker
 $(INTERNAL_OTA_PACKAGE_TARGET): $(TARGET_ADBLOCKER_HOSTS_FILE)
 endif
