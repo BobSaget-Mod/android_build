@@ -87,7 +87,7 @@ endif
 TARGET_GLOBAL_CFLAGS += \
 			$(TARGET_mips_CFLAGS) \
 			-Ulinux -U__unix -U__unix__ -Umips \
-			-fpic \
+			-fpic -fPIE\
 			-ffunction-sections \
 			-fdata-sections \
 			-funwind-tables \
@@ -225,11 +225,6 @@ TARGET_DEFAULT_SYSTEM_SHARED_LIBRARIES := libc libstdc++ libm
 
 TARGET_CUSTOM_LD_COMMAND := true
 
-# Enable the Dalvik JIT compiler if not already specified.
-ifeq ($(strip $(WITH_JIT)),)
-    WITH_JIT := true
-endif
-
 define transform-o-to-shared-lib-inner
 $(hide) $(PRIVATE_CXX) \
 	-nostdlib -Wl,-soname,$(notdir $@) \
@@ -254,7 +249,7 @@ $(hide) $(PRIVATE_CXX) \
 endef
 
 define transform-o-to-executable-inner
-$(hide) $(PRIVATE_CXX) -nostdlib -Bdynamic \
+$(hide) $(PRIVATE_CXX) -nostdlib -Bdynamic -fPIE -pie \
 	-Wl,-dynamic-linker,/system/bin/linker \
 	-Wl,--gc-sections \
 	-Wl,-z,nocopyreloc \
