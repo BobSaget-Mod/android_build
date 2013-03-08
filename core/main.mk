@@ -486,6 +486,8 @@ FULL_BUILD := true
 
 endif	# !SDK_ONLY
 
+endif	# !BUILD_TINY_ANDROID
+
 # Before we go and include all of the module makefiles, stash away
 # the PRODUCT_* values so that later we can verify they are not modified.
 stash_product_vars:=true
