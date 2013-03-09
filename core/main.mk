@@ -133,7 +133,7 @@ endif
 #$(error stop)
 #endif
 
- Check for the correct version of java
+# Check for the correct version of java
 java_version := $(shell java -version 2>&1 | head -n 1 | grep '^java .*[ "]1\.[67][\. "$$]')
 ifneq ($(shell java -version 2>&1 | grep -i openjdk),)
 $(warning ************************************************************)
