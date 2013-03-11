@@ -420,9 +420,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.wipe_user_data:
     script.FormatPartition("/data")
 
-  if "selinux_fc" in OPTIONS.info_dict:
-    WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
-
   script.FormatPartition("/system")
   script.Mount("/system")
   #script.UnpackPackageDir("recovery", "/system")
@@ -463,12 +460,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.UnmountAll()
   script.AddToZip(input_zip, output_zip)
   WriteMetadata(metadata, output_zip)
-
-def WritePolicyConfig(file_context, output_zip):
-  f = open(file_context, 'r');
-  basename = os.path.basename(file_context)
-  common.ZipWriteStr(output_zip, basename, f.read())
-
 
 def WriteMetadata(metadata, output_zip):
   common.ZipWriteStr(output_zip, "META-INF/com/android/metadata",
