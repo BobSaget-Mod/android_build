@@ -589,8 +589,10 @@ INTERNAL_USERIMAGES_DEPS := $(MKYAFFS2)
 endif
 INTERNAL_USERIMAGES_BINARY_PATHS := $(sort $(dir $(INTERNAL_USERIMAGES_DEPS)))
 
+ifeq ($(HAVE_SELINUX),true)
 SELINUX_FC := $(TARGET_ROOT_OUT)/file_contexts
 INTERNAL_USERIMAGES_DEPS += $(SELINUX_FC)
+endif
 
 # $(1): the path of the output dictionary file
 define generate-userimage-prop-dictionary
