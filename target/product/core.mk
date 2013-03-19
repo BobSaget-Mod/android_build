@@ -121,8 +121,6 @@ PRODUCT_PACKAGES += \
     requestsync \
     screencap \
     sensorservice \
-    lint \
-    uiautomator \
     telephony-common \
     mms-common
 
