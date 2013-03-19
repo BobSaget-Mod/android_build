@@ -9,7 +9,7 @@ ARCH_ARM_HAVE_VFP               := true
 #
 arch_variant_cflags := \
     -march=armv7-a \
-    -mfloat-abi=hard \
+    -mfloat-abi=softfp \
     -mfpu=vfpv3-d16
 
 ifneq (,$(findstring cpu=cortex-a9,$(TARGET_EXTRA_CFLAGS)))
