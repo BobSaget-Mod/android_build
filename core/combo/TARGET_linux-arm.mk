@@ -134,7 +134,7 @@ else
 endif
 
 TARGET_GLOBAL_CFLAGS += \
-			-msoft-float -fpic $(PIE_GLOBAL_CFLAGS) \
+			-mhard-float -fpic $(PIE_GLOBAL_CFLAGS) \
 			-ffunction-sections \
 			-fdata-sections \
 			-funwind-tables \

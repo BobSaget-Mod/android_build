@@ -11,7 +11,7 @@ ARCH_ARM_HAVE_NEON              := true
 #
 arch_variant_cflags := \
     -march=armv7-a \
-    -mfloat-abi=softfp \
+    -mfloat-abi=hard \
     -mfpu=neon
 
 ifneq (,$(findstring cpu=cortex-a9,$(TARGET_EXTRA_CFLAGS)))
