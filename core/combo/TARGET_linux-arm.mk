@@ -67,10 +67,22 @@ endif
 TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
 TARGET_arm_CFLAGS :=    -O3 \
+                        -fgcse-after-reload \
+                        -fipa-cp-clone \
+                        -fpredictive-commoning \
+                        -fsched-spec-load \
+                        -funswitch-loops \
+                        -ftree-loop-distribution \
+                        -ftree-loop-linear \
+                        -fvect-cost-model \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
-                        -funswitch-loops \
-                        -pipe
+                        -Wstrict-aliasing=3 \
+                        -Werror=strict-aliasing
+
+ifeq ($(ARCH_ARM_HIGH_OPTIMIZATION_COMPAT),true)
+TARGET_arm_CFLAGS :=    -fno-tree-vectorize
+endif
 
 # Modules can choose to compile some source as thumb. As
 # non-thumb enabled targets are supported, this is treated
@@ -84,14 +96,24 @@ TARGET_thumb_CFLAGS :=  -mthumb \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
                         -Werror=strict-aliasing \
+                        -fgcse-after-reload \
+                        -fsched-spec-load \
+                        -funswitch-loops \
+                        -fvect-cost-model \
+                        -fipa-cp-clone \
                         -pipe
     else
 TARGET_thumb_CFLAGS :=  -mthumb \
-                        -Os \
+                        -O2 \
                         -fomit-frame-pointer \
                         -fstrict-aliasing \
                         -Wstrict-aliasing=2 \
                         -Werror=strict-aliasing \
+                        -fgcse-after-reload \
+                        -fsched-spec-load \
+                        -funswitch-loops \
+                        -fvect-cost-model \
+                        -fipa-cp-clone \
                         -pipe
     endif
 else
@@ -189,7 +211,7 @@ endif
 TARGET_RELEASE_CFLAGS += \
 			-DNDEBUG \
 			-g \
-			-Wstrict-aliasing=2 \
+			-Wstrict-aliasing=3 \
 			-Werror=strict-aliasing \
 			-fgcse-after-reload \
 			-frerun-cse-after-loop \
