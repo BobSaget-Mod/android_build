@@ -7,6 +7,11 @@ export DEVICE=mako;
 export BUILD=SaberMod;
 export KERNEL=mako;
 
+# Ensure our colors are used above preset colors
+unset GCC_COLORS
+# Always use diagnostic colors, supported in gcc 4.9.x+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
