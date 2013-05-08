@@ -55,6 +55,37 @@ do
     esac
 done
 
+echo "Version of host GCC to build with.  To use 4.8, must have installed GCC 4.8 on host machine.  Check version with "$ gcc --version".  GCC 4.6 is deprecated so is not a option.  If have GCC 4.6 on host upgrade to 4.7.  1=gcc-4.8, 2=gcc-4.7, 3=continue";
+echo "";
+PS2='Please enter your choice: '
+options=("1" "2" "3")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "1")
+            echo "you chose choice 1";
+            echo "";
+            export HOST_CC=gcc-4.8;
+            export HOST_CXX=g++-4.8
+            ;;
+        "2")
+            echo "you chose choice 2";
+            echo "";
+            export HOST_CC=gcc-4.7;
+            export HOST_CXX=g++-4.7
+            ;;
+        "3")
+            echo "you chose choice 3";
+            echo "";
+            break;
+            ;;
+        *)
+            echo "invalid option";
+            exit 1;
+            ;;
+    esac
+done
+
 # call with a prompt string or use a default
 read -r -p "${1:-repo sync first? [Y/n] Default is yes} " response
 case $response in
@@ -126,7 +157,7 @@ case $response in
         then
 
             # Start the build
-            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel-clean && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Cleaning target device" && make $J clean && echo "Starting the ROM build" && echo "" && time make $J "$@" otapackage;
+            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel-clean && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Cleaning target device" && make $J clean && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J "$@" otapackage;
             cd $DIRSRC/device/$MANUFACTURER/grouper && git reset --hard && cd $DIRSRC;
             echo "Finished!" && echo "";
         else
@@ -146,7 +177,7 @@ case $response in
                 [nN][oO]|[nN])
                     echo "Skipping all cleaning steps" && echo "";
                    # Start the build
-                    echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && time make $J otapackage;
+                    echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
                     cd $DIRSRC/device/$MANUFACTURER/grouper && git reset --hard && cd $DIRSRC;
                     echo "Finished!" && echo "";
                     ;;
@@ -162,7 +193,7 @@ case $response in
                             then
                                 bash $DIRSRC/$KERNEL-kernel-clean && echo "Clean Kernel build and cleaning steps completed" && echo "";
                                 # Start the build
-                                . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && time make $J otapackage;
+                                . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
                                 cd $DIRSRC/device/$MANUFACTURER/grouper && git reset --hard && cd $DIRSRC;
                                 echo "Finished!" && echo "";
                             else
@@ -174,7 +205,7 @@ case $response in
                             rm -rf $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.zip $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.img $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/app/*.apk $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/build.prop;
                             echo "Cleaning steps completed" && echo "";
                             # Start the build
-                            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && time make $J otapackage;
+                            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
                             cd $DIRSRC/device/$MANUFACTURER/grouper && git reset --hard && cd $DIRSRC;
                             echo "Finished!" && echo "";
                             ;;
