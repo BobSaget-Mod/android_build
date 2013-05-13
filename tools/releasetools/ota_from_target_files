@@ -420,7 +420,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.Print("                                          ")
   script.Print(" Contributors: CyanogenMod | Rascarlo     ")
   script.Print("                                          ")
-  script.Print("                jarjar124                 ")
   script.Print("                                          ")
 
   if OPTIONS.wipe_user_data:
