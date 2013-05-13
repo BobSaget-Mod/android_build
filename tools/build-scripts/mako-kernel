@@ -4,6 +4,10 @@
 export MANUFACTURER=lge;
 export DEVICE=mako;
 
+# GCC
+export CC=$HOST_CC;
+export CXX=$HOST_CXX;
+
 # Source Directory PATH
 export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
