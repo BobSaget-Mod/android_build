@@ -172,7 +172,7 @@ case $response in
         then
 
             # call with a prompt string or use a default
-            read -r -p "${1:-No clean build.  Do you want to at a bare minimum clean out zips, images and old build.prop? [Y/n]  Default is yes} " response
+            read -r -p "${1:-No clean build.  Do you want to run make installclean? [Y/n]  Default is yes} " response
             case $response in
                 [nN][oO]|[nN])
                     echo "Skipping all cleaning steps" && echo "";
@@ -182,18 +182,16 @@ case $response in
                     echo "Finished!" && echo "";
                     ;;
                 *)
-
                     echo "";
                     # call with a prompt string or use a default
                     read -r -p "${1:-Do you want to build a clean kernel? [Y/n] Default is no} " response
                     case $response in
                         [yY][eE][sS]|[yY])
-                            rm -rf $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.zip $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.img $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/app/*.apk $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/build.prop;
                             if [ -e $DIRSRC/$KERNEL-kernel-clean ];
                             then
-                                bash $DIRSRC/$KERNEL-kernel-clean && echo "Clean Kernel build and cleaning steps completed" && echo "";
+                                bash $DIRSRC/$KERNEL-kernel-clean && echo "Clean Kernel build completed" && echo "";
                                 # Start the build
-                                . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
+                                . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && make $J installclean && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
                                 cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC/device/$MANUFACTURER/mako-kernel && git reset --hard && cd $DIRSRC;
                                 echo "Finished!" && echo "";
                             else
@@ -202,10 +200,8 @@ case $response in
                             fi;
                             ;;
                         *)
-                            rm -rf $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.zip $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/*.img $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/app/*.apk $DIRSRC/out/$DEVICE/$BUILD/target/product/$DEVICE/system/build.prop;
-                            echo "Cleaning steps completed" && echo "";
                             # Start the build
-                            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
+                            echo "" && echo "Building kernel before ROM" && bash $DIRSRC/$KERNEL-kernel && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && make $J installclean && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
                             cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC/device/$MANUFACTURER/mako-kernel && git reset --hard && cd $DIRSRC;
                             echo "Finished!" && echo "";
                             ;;
