@@ -1,0 +1,197 @@
+#!/bin/bash
+# Copyright (C) 2012-2013 The SaberMod Project
+# Build Script.  Use bash to run this script, bash sm-manta from source directory
+export USING_BUILD_SCRIPTS=true;
+export MANUFACTURER=samsung;
+export DEVICE=manta;
+export BUILD=SaberMod;
+
+# Ensure our colors are used above preset colors
+unset GCC_COLORS;
+# Always use diagnostic colors, supported in gcc 4.9.x+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01';
+
+# Source Directory PATH
+export DIRSRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
+
+echo "you are building for device $DEVICE" && echo "" && echo "Starting configurable build options, you will be given the option to make a clean build prior to building" && echo "";
+
+echo "Number of jobs you want to enable for building (number of cpu's is recommended unless you want to add more ;) 1=auto, 2=4, 3=8, 4=16, 5=continue";
+echo "";
+PS4='Please enter your choice: '
+options=("1" "2" "3" "4" "5")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "1")
+            echo "you chose choice 1";
+            echo "";
+            export J=-j`cat /proc/cpuinfo | grep "^processor" | wc -l` "$@";
+            ;;
+        "2")
+            echo "you chose choice 2";
+            echo "";
+            export J=-j4;
+            ;;
+        "3")
+            echo "you chose choice 3";
+            echo "";
+            export J=-j8;
+            ;;
+        "4")
+            echo "you chose choice 4";
+            echo "";
+            export J=-j16;
+            ;;
+        "5")
+            echo "you chose choice 5";
+            break;
+            ;;
+        *)
+            echo "invalid option";
+            exit 1;
+            ;;
+    esac
+done
+
+echo "Version of host GCC to build with.  To use 4.8, must have installed GCC 4.8 on host machine.  Check version with "$ gcc --version".  GCC 4.6 is deprecated so is not a option.  If have GCC 4.6 on host upgrade to 4.7.  1=gcc-4.8, 2=gcc-4.7, 3=continue";
+echo "";
+PS2='Please enter your choice: '
+options=("1" "2" "3")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "1")
+            echo "you chose choice 1";
+            echo "";
+            export HOST_CC=gcc-4.8;
+            export HOST_CXX=g++-4.8
+            ;;
+        "2")
+            echo "you chose choice 2";
+            echo "";
+            export HOST_CC=gcc-4.7;
+            export HOST_CXX=g++-4.7
+            ;;
+        "3")
+            echo "you chose choice 3";
+            echo "";
+            break;
+            ;;
+        *)
+            echo "invalid option";
+            exit 1;
+            ;;
+    esac
+done
+
+# call with a prompt string or use a default
+read -r -p "${1:-repo sync first? [Y/n] Default is yes} " response
+case $response in
+    [nN][oO]|[nN])
+        # Do nothing
+        echo "";
+        ;;
+    *)
+        # sync the repo
+        repo sync $J;
+        echo "repo sync is complete";
+        echo "";
+        ;;
+esac
+
+# Output directory PATH
+export OUT_DIR_COMMON_BASE=$DIRSRC/out/$DEVICE;
+
+# call with a prompt string or use a default
+read -r -p "${1:-Use -O3 flags? [Y/n] Default is no.  You must do a clean build if first time enabling} " response
+case $response in
+    [yY][eE][sS]|[yY])
+        # -O3 flags.
+        export USE_MORE_OPT_FLAGS=yes;
+        echo "-O3 flags have been enabled";
+        echo "";
+        ;;
+    *)
+        echo "";
+        ;;
+esac
+
+# call with a prompt string or use a default
+read -r -p "${1:-Use strict-aliasing flags? [Y/n] Default is yes.  You must do a clean build if first time disabing} " response
+case $response in
+    [nN][oO]|[nN])
+        # strict-aliasing flags.
+        export DEBUG_NO_STRICT_ALIASING=yes;
+        echo "strict-aliasing has been disabled";
+        echo "";
+        ;;
+    *)
+        echo "";
+        ;;
+esac
+
+# call with a prompt string or use a default
+read -r -p "${1:-Use ccache? [Y/n] Note you must have already set this up manually for it to work.  Pleas see http://source.android.com/source/initializing.html for more info under Setting up ccache section} " response
+case $response in
+    [yY][eE][sS]|[yY])
+        # ccache. Set up ccache to your liking prior to running this script
+        export CCACHE_DIR=$DIRSRC/prebuilts/misc/linux-x86/ccache;
+        export USE_CCACHE=1;
+        echo "ccache building is enabled";
+        echo "";
+        ;;
+    *)
+        echo "Skipping ccache";
+        echo "";
+        ;;
+esac
+
+# call with a prompt string or use a default
+read -r -p "${1:-Make a clean build? [Y/n] Y for clean, n for dirty. Default is dirty.  If changing flags or wanting to build with a updated toolchain from repo sync recommended is yes} " response
+case $response in
+    [yY][eE][sS]|[yY])
+        # Check for required script
+        if [ -e $DIRSRC/sm-$DEVICE ];
+        then
+            # Start the build
+            . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Cleaning target device" && make $J clean && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
+            cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC;
+            echo "Finished!" && echo "";
+        else
+            echo "No build script found, did you delete it?  repo sync and try again, or copy build scripts to the root of your source from build/tools/build-scripts";
+            exit 1;
+        fi;
+        ;;
+    *)
+        echo "";
+        # Check for required scripts
+        if [ -e $DIRSRC/sm-$DEVICE ];
+        then
+
+            # call with a prompt string or use a default
+            read -r -p "${1:-No clean build.  Do you want to run make installclean? [Y/n]  Default is No} " response
+            case $response in
+                [yY][eE][sS]|[yY])
+                    echo "";
+
+                    # Start the build
+                    echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && make $J installclean && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
+                    cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC;
+                    echo "Finished!" && echo "";
+                    ;;
+                *)
+                    echo "Skipping all cleaning steps";
+
+                    # Start the build
+                    echo "" && . build/envsetup.sh && lunch sm_$DEVICE-user && echo "" && echo "Starting the ROM build" && echo "" && export CC=$HOST_CC && export CXX=$HOST_CXX && time make $J otapackage;
+                    cd $DIRSRC/device/$MANUFACTURER/$DEVICE && git reset --hard && cd $DIRSRC;
+                    echo "Finished!" && echo "";
+                    ;;
+            esac
+        else
+            echo "No build script found, did you delete it?  repo sync and try again, or copy build scripts to the root of your source from build/tools/build-scripts";
+            exit 1;
+        fi;
+        ;;
+esac
