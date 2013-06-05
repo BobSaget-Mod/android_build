@@ -18,7 +18,7 @@ export MODULES_DEST=$DIRSRC/vendor/sm/prebuilts/mako/system/lib/modules;
 export KERNELSRC=$DIRSRC/kernel/$MANUFACTURER/$DEVICE;
 
 # Target gcc version
-export TARGET_GCC=4.7;
+export TARGET_GCC=4.8;
 export ARM_EABI_TOOLCHAIN=$DIRSRC/prebuilts/gcc/linux-x86/arm/arm-eabi-$TARGET_GCC;
 export PATH=$PATH:$ARM_EABI_TOOLCHAIN/bin:$ARM_EABI_TOOLCHAIN/arm-eabi/bin;
 
