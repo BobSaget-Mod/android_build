@@ -45,7 +45,7 @@ then
         cp $KERNELSRC/fs/cifs/cifs.ko -f $MODULES_DEST/cifs.ko && cp $KERNELSRC/crypto/ansi_cprng.ko -f $MODULES_DEST/ansi_cprng.ko && cp $KERNELSRC/drivers/media/video/gspca/gspca_main.ko -f $MODULES_DEST/gspca_main.ko && cp $KERNELSRC/drivers/hid/hid-logitech-dj.ko -f $MODULES_DEST/hid-logitech-dj.ko && cp $KERNELSRC/drivers/scsi/scsi_wait_scan.ko -f $MODULES_DEST/scsi_wait_scan.ko;
     else
         mkdir -p $MODULES_DEST;
-        cp $KERNELSRC/fs/cifs/cifs.ko -f $MODULES_DEST/cifs.ko;
+        cp $KERNELSRC/fs/cifs/cifs.ko -f $MODULES_DEST/cifs.ko && cp $KERNELSRC/crypto/ansi_cprng.ko -f $MODULES_DEST/ansi_cprng.ko && cp $KERNELSRC/drivers/media/video/gspca/gspca_main.ko -f $MODULES_DEST/gspca_main.ko && cp $KERNELSRC/drivers/hid/hid-logitech-dj.ko -f $MODULES_DEST/hid-logitech-dj.ko && cp $KERNELSRC/drivers/scsi/scsi_wait_scan.ko -f $MODULES_DEST/scsi_wait_scan.ko;
     fi;
 else
     echo "":
