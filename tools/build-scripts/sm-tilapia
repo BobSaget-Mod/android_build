@@ -227,6 +227,7 @@ case $response in
                             echo "Finished!" && echo "";
                             ;;
                     esac
+            esac
         else
             echo "No kernel script found, did you delete it?  repo sync and try again, or copy build scripts to the root of your source from build/tools/build-scripts";
             exit 1;
