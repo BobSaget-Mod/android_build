@@ -105,21 +105,6 @@ esac
 export OUT_DIR_COMMON_BASE=$DIRSRC/out/$DEVICE;
 
 # call with a prompt string or use a default
-read -r -p "${1:-Use -O3 flags? [Y/n] Default is yes.  You must do a clean build if first time disabling} " response
-case $response in
-    [nN][oO]|[nN])
-        echo "-O3 flags are disabled";
-        echo "";
-        ;;
-    *)
-        # -O3 flags.
-        export USE_MORE_OPT_FLAGS=yes;
-        echo "-O3 flags are enabled";
-        echo "";
-        ;;
-esac
-
-# call with a prompt string or use a default
 read -r -p "${1:-Use strict-aliasing flags? [Y/n] Default is yes.  You must do a clean build if first time disabing} " response
 case $response in
     [nN][oO]|[nN])
