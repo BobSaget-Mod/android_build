@@ -38,7 +38,7 @@ echo "";
 make -C $KERNELSRC $J sabermod_mako_defconfig && time make -C $KERNELSRC $J zImage && make -C $KERNELSRC $J modules;
 
 # Only try to install the kernel binary image and modules(s) if they exsist
-if [ -e $KERNELSRC/arch/arm/boot/zImage ] || [ -e $KERNELSRC/drivers/scsi/scsi_wait_scan.ko ] || [ -e $KERNELSRC/fs/cifs/cifs.ko ];
+if [ -e $KERNELSRC/arch/arm/boot/zImage ] && [ -e $KERNELSRC/drivers/scsi/scsi_wait_scan.ko ] && [ -e $KERNELSRC/fs/cifs/cifs.ko ];
 then
     cp $KERNELSRC/arch/arm/boot/zImage -f $DIRSRC/device/$MANUFACTURER/$DEVICE-kernel/kernel;
 
